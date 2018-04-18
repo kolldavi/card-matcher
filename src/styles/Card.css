@@ -1,0 +1,11 @@
+.card {
+  width: 200px;
+  height: 200px;
+  background-color: blue;
+  display: flex;
+  margin: 2px;
+}
+
+.front {
+  background-color: red;
+}
