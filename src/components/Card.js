@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../styles/Card.css";
+
 class Card extends Component {
   //img: "img1", key: 1, match: false, isTurned: false
 
@@ -9,7 +10,6 @@ class Card extends Component {
   handleClick = e => {
     e.preventDefault();
     if (this.props.match) return;
-    console.log("Card prop", this.props);
     this.props.onClick &&
       this.props.onClick({
         ...this.props,
@@ -17,12 +17,18 @@ class Card extends Component {
       });
   };
   render() {
+    const done = this.props.match ? "done" : "";
+    const flip = this.props.isTurned ? "flip" : "";
     return (
-      <div className="card" onClick={this.handleClick}>
+      <div className={`card ${done} ${flip}`} onClick={this.handleClick}>
         {this.props.isTurned ? (
-          <h1 className="front">img: {this.props.img}</h1>
+          <img
+            className="card-image"
+            src={this.props.img}
+            alt={this.props.name}
+          />
         ) : (
-          <h1>front {this.props.img}</h1>
+          <h1>Front: {this.props.name}</h1>
         )}
       </div>
     );

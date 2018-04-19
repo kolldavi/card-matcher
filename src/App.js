@@ -2,61 +2,53 @@ import React, { Component } from "react";
 import "./styles/App.css";
 import CardList from "./components/CardList";
 import shuffle from "lodash/shuffle";
+import bike from "./images/bike.svg";
+import star from "./images/star.svg";
+import pumpkin from "./images/pumpkins.svg";
+import devil from "./images/social-freebsd-devil.svg";
+import tux from "./images/social-tux.svg";
+import octocat from "./images/octocat.svg";
+import football from "./images/football.svg";
+import snow from "./images/snowy.svg";
+import halfStar from "./images/half-star.svg";
+import cat from "./images/cat.jpg";
 const cards = [
-  { img: "img1", name: 1, match: false, isTurned: false },
-  { img: "img2", name: 2, match: false, isTurned: false },
-  { img: "img3", name: 3, match: false, isTurned: false },
-  { img: "img4", name: 4, match: false, isTurned: false },
-  { img: "img5", name: 5, match: false, isTurned: false },
-  { img: "img6", name: 6, match: false, isTurned: false },
-  { img: "img7", name: 7, match: false, isTurned: false },
-  { img: "img8", name: 8, match: false, isTurned: false },
-  { img: "img9", name: 9, match: false, isTurned: false },
-  { img: "img10", name: 10, match: false, isTurned: false }
+  { img: bike, name: "bike", match: false, isTurned: false },
+  { img: star, name: "star", match: false, isTurned: false },
+  { img: pumpkin, name: "pumpkin", match: false, isTurned: false },
+  {
+    img: devil,
+    name: "devil",
+    match: false,
+    isTurned: false
+  },
+  { img: tux, name: "tux", match: false, isTurned: false },
+  { img: octocat, name: "octocat", match: false, isTurned: false },
+  { img: football, name: "football", match: false, isTurned: false },
+  { img: snow, name: "snow", match: false, isTurned: false },
+  { img: halfStar, name: "half star", match: false, isTurned: false },
+  { img: cat, name: "cat", match: false, isTurned: false }
 ];
 class App extends Component {
   state = { cards: this.newGame(), checkmatch: false, prevCard: {} };
 
   checkmatch = card => {
-    console.log("card", card);
     this.updateCheckmatch();
     this.updateCard(card);
-
-    //  console.log("state", this.state);
   };
 
   updateCard = card => {
     if (this.state.checkmatch) {
-      console.log("prevCard", this.state.prevCard.card.img);
-      if (this.state.prevCard.card.img === card.img) {
-        this.setState(prev => {
-          let temp = prev.cards.map(c => {
-            if (c.img === card.img) {
-              c.isTurned = card.isTurned;
-              c.match = true;
-            }
-
-            return c;
-          });
-          return { cards: temp, prevCard: {} };
-        });
+      if (
+        this.state.prevCard.card.name === card.name &&
+        this.state.prevCard.card.uname !== card.uname
+      ) {
+        this.updateStateMatch(card);
       } else {
-        console.log("state2", this.state);
-        this.setState(prev => {
-          let temp = prev.cards.map(c => {
-            if (
-              c.uname === card.uname ||
-              c.uname === prev.prevCard.card.uname
-            ) {
-              c.isTurned = false;
-            }
-
-            return c;
-          });
-          return { cards: temp, prevCard: {} };
-        });
+        this.updateStateNoMatch(card);
       }
     } else {
+      //turn card if not checking for match
       this.setState(prev => {
         let temp = prev.cards.map(c => {
           if (c.uname === card.uname) {
@@ -68,6 +60,50 @@ class App extends Component {
       });
     }
   };
+  updateStateNoMatch(card) {
+    //if click same card just turned
+    if (card.uname === this.state.prevCard.card.uname) {
+      this.updateCheckmatch();
+      return;
+    }
+    //turn cards to over
+    this.setState(prev => {
+      let temp = prev.cards.map(c => {
+        if (c.uname === card.uname || c.uname === prev.prevCard.card.uname) {
+          c.isTurned = true;
+        }
+        return c;
+      });
+      return { cards: temp };
+    });
+
+    setTimeout(() => {
+      this.setState(prev => {
+        console.log("in");
+        let temp = prev.cards.map(c => {
+          if (c.uname === card.uname || c.uname === prev.prevCard.card.uname) {
+            c.isTurned = false;
+          }
+          return c;
+        });
+        return { cards: temp, prevCard: {} };
+      });
+    }, 700);
+  }
+
+  updateStateMatch(card) {
+    this.setState(prev => {
+      let temp = prev.cards.map(c => {
+        if (c.name === card.name) {
+          c.isTurned = card.isTurned;
+          c.match = true;
+        }
+        return c;
+      });
+      return { cards: temp, prevCard: {} };
+    });
+  }
+
   updateCheckmatch() {
     this.setState(prev => {
       return { checkmatch: !prev.checkmatch };
