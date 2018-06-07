@@ -1,29 +1,35 @@
 .card {
   width: 100%;
   height: 100%;
-  background-color: blue;
+  background: linear-gradient(45deg, rgba(0, 247, 255, 0.692), rgba(9, 103, 165, 0.692));
   display: flex;
   margin: 2px;
   justify-content: center;
   transition: all 0.7s;
   -webkit-transition: all 0.7s;
+  border-radius: 5px;
 }
+
 .card-image {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   align-self: center;
 }
+
 .flip {
   transform: rotateY(180deg);
+  border: 5px solid #c8c9d1;
 }
 
 .front {
-  background-color: red;
+  border: 5px solid #BADA55;
 }
 
 .done {
-  background-color: green;
+  background: gray;
+  border: 5px solid #c8c9d1;
 }
+
 .animate {
   transition: all 0.1s;
   -webkit-transition: all 0.1s;

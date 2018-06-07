@@ -3,20 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
+    "prettier": "^1.13.4",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "react-scripts": "1.1.4",
-    "prettier": "^1.7.0"
+    "react-timer-hoc": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-plugin-react": "^7.4.0"
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-react": "^7.9.1"
   },
   "prettier": {
     "overrides": [
