@@ -1,30 +1,5 @@
-import React, { Component } from 'react';
-import './styles/App.css';
-import CardList from './components/CardList';
-import shuffle from 'lodash/shuffle';
-import bike from './images/bike.svg';
-import star from './images/star.svg';
-import pumpkin from './images/pumpkins.svg';
-import devil from './images/social-freebsd-devil.svg';
-import tux from './images/social-tux.svg';
-import octocat from './images/octocat.svg';
-import football from './images/football.svg';
-import snow from './images/snowy.svg';
-import halfStar from './images/half-star.svg';
-import cat from './images/cat.jpg';
-
-const cards = [
-	{ img: bike, name: 'bike', match: false, isTurned: false },
-	{ img: star, name: 'star', match: false, isTurned: false },
-	{ img: pumpkin, name: 'pumpkin', match: false, isTurned: false }
-	// 	{ img: devil, name: 'devil', match: false, isTurned: false },
-	// 	{ img: tux, name: 'tux', match: false, isTurned: false },
-	// 	{ img: octocat, name: 'octocat', match: false, isTurned: false },
-	// 	{ img: football, name: 'football', match: false, isTurned: false },
-	// 	{ img: snow, name: 'snow', match: false, isTurned: false },
-	// 	{ img: halfStar, name: 'half star', match: false, isTurned: false },
-	// 	{ img: cat, name: 'cat', match: false, isTurned: false }
-];
+import React from 'react';
+import CardList from './CardList';
 
 function resetTimer() {
 	return new Date();
@@ -48,25 +23,12 @@ function newGame() {
 		)
 	);
 }
-
-class App extends Component {
+class CardGame extends React.Component {
 	state = {
 		cards: newGame(),
 		position: 'CHECK_MATCH',
 		prevCard: null,
-		uname: null,
-		timer: null,
-		counter: 0
-	};
-
-	componentDidMount() {
-		let timer = setInterval(this.tick, 1000);
-		this.setState({ timer });
-	}
-	tick = () => {
-		this.setState({
-			counter: this.state.counter + 1
-		});
+		uname: null
 	};
 	checkWinner = cards => {
 		return cards.every(card => card.match === true);
@@ -171,13 +133,6 @@ class App extends Component {
 			return { cards: temp, prevCard: {}, position: 'WAIT_FOR_FIRST_CLICK' };
 		});
 	}
-
-	updateCheckmatch() {
-		this.setState(prev => {
-			return { checkmatch: !prev.checkmatch };
-		});
-	}
-
 	componentDidUpdate() {
 		if (this.checkWinner(this.state.cards)) {
 			console.log(`You Won! with a time of ${this.state.counter} seconds`);
@@ -193,10 +148,14 @@ class App extends Component {
 			});
 		}
 	}
+	updateCheckmatch() {
+		this.setState(prev => {
+			return { checkmatch: !prev.checkmatch };
+		});
+	}
 
 	render() {
 		const { cards } = this.state;
-
 		return (
 			<div className="App">
 				<div className="card-container">
@@ -206,6 +165,7 @@ class App extends Component {
 							this.checkmatch(card);
 						}}
 					/>
+					<CardGame cards={cards} />
 				</div>
 				<p>{this.state.counter}</p>
 			</div>
@@ -213,4 +173,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default CardGame;

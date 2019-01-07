@@ -1,16 +1,14 @@
 .card-list {
-  width: 80vw;
   display: grid;
   grid-gap: 1px;
   grid-template-columns: repeat(5, 1fr);
 }
 
 .card {
-  width: 20vw;
+
   height: 20vh;
 }
 
 html {
   box-sizing: border-box;
 }
-
