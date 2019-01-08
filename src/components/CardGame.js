@@ -14,8 +14,8 @@ import cat from '../images/cat.jpg';
 
 const cards = [
 	{ img: bike, name: 'bike', match: false, isTurned: false },
-	{ img: star, name: 'star', match: false, isTurned: false },
-	{ img: pumpkin, name: 'pumpkin', match: false, isTurned: false }
+	{ img: star, name: 'star', match: false, isTurned: false }
+	// { img: pumpkin, name: 'pumpkin', match: false, isTurned: false }
 	// 	{ img: devil, name: 'devil', match: false, isTurned: false },
 	// 	{ img: tux, name: 'tux', match: false, isTurned: false },
 	// 	{ img: octocat, name: 'octocat', match: false, isTurned: false },
@@ -43,7 +43,7 @@ class CardGame extends React.Component {
 			counter: this.state.counter + 1
 		});
 	};
-
+	g;
 	checkWinner = cards => {
 		return cards.every(card => card.match === true);
 	};
@@ -147,18 +147,11 @@ class CardGame extends React.Component {
 			return { cards: temp, prevCard: {}, position: 'WAIT_FOR_FIRST_CLICK' };
 		});
 	}
+
 	componentDidUpdate() {
 		if (this.checkWinner(this.state.cards)) {
-			console.log(`You Won! with a time of ${this.state.counter} seconds`);
-			this.setState(prev => {
-				return {
-					cards: newGame(),
-					position: 'CHECK_MATCH',
-					prevCard: null,
-					uname: null,
-					counter: 0
-				};
-			});
+			this.props.updateResults(this.state.counter);
+			this.props.changeState('END_GAME');
 		}
 	}
 	updateCheckmatch() {
