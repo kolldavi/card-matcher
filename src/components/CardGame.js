@@ -154,7 +154,9 @@ class CardGame extends React.Component {
 			this.props.changeState('END_GAME');
 		}
 	}
-
+	componentWillUnmount() {
+		clearInterval(this.state.timer);
+	}
 	updateCheckmatch() {
 		this.setState(prev => {
 			return { checkmatch: !prev.checkmatch };
