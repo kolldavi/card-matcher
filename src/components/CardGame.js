@@ -4,25 +4,25 @@ import shuffle from 'lodash/shuffle';
 import bike from '../images/bike.svg';
 import star from '../images/star.svg';
 import pumpkin from '../images/pumpkins.svg';
-import devil from '../images/social-freebsd-devil.svg';
-import tux from '../images/social-tux.svg';
+import devil from '../images/devil.svg';
+import tux from '../images/tux.svg';
 import octocat from '../images/octocat.svg';
 import football from '../images/football.svg';
 import snow from '../images/snowy.svg';
-import halfStar from '../images/half-star.svg';
+import halfStar from '../images/halfStar.svg';
 import cat from '../images/cat.jpg';
 
 const cards = [
 	{ img: bike, name: 'bike', match: false, isTurned: false },
-	{ img: star, name: 'star', match: false, isTurned: false }
-	// { img: pumpkin, name: 'pumpkin', match: false, isTurned: false }
-	// 	{ img: devil, name: 'devil', match: false, isTurned: false },
-	// 	{ img: tux, name: 'tux', match: false, isTurned: false },
-	// 	{ img: octocat, name: 'octocat', match: false, isTurned: false },
-	// 	{ img: football, name: 'football', match: false, isTurned: false },
-	// 	{ img: snow, name: 'snow', match: false, isTurned: false },
-	// 	{ img: halfStar, name: 'half star', match: false, isTurned: false },
-	// 	{ img: cat, name: 'cat', match: false, isTurned: false }
+	{ img: star, name: 'star', match: false, isTurned: false },
+	{ img: pumpkin, name: 'pumpkin', match: false, isTurned: false },
+	{ img: devil, name: 'devil', match: false, isTurned: false },
+	{ img: tux, name: 'tux', match: false, isTurned: false },
+	{ img: octocat, name: 'octocat', match: false, isTurned: false },
+	{ img: football, name: 'football', match: false, isTurned: false },
+	{ img: snow, name: 'snow', match: false, isTurned: false },
+	{ img: halfStar, name: 'half star', match: false, isTurned: false },
+	{ img: cat, name: 'cat', match: false, isTurned: false }
 ];
 
 class CardGame extends React.Component {
@@ -34,16 +34,18 @@ class CardGame extends React.Component {
 		timer: null,
 		counter: 0
 	};
+
 	componentDidMount() {
 		let timer = setInterval(this.tick, 1000);
 		this.setState({ timer });
 	}
+
 	tick = () => {
 		this.setState({
 			counter: this.state.counter + 1
 		});
 	};
-	g;
+
 	checkWinner = cards => {
 		return cards.every(card => card.match === true);
 	};
@@ -115,8 +117,6 @@ class CardGame extends React.Component {
 		setTimeout(() => {
 			this.setState(prev => {
 				let temp = prev.cards.map(c => {
-					console.log('prev', prev);
-					console.log('c', c);
 					if (
 						Object.getOwnPropertyNames(prev.prevCard).length === 0 ||
 						c.uname === card.uname ||
@@ -154,6 +154,7 @@ class CardGame extends React.Component {
 			this.props.changeState('END_GAME');
 		}
 	}
+
 	updateCheckmatch() {
 		this.setState(prev => {
 			return { checkmatch: !prev.checkmatch };
@@ -164,7 +165,7 @@ class CardGame extends React.Component {
 		const { cards } = this.state;
 		return (
 			<div className="App">
-				<div className="card-container">
+				<div>
 					<CardList
 						cards={cards}
 						checkmatch={card => {
@@ -186,7 +187,7 @@ function newGame() {
 					return { ...c, uname: `${c.img}-1` };
 				})
 			)
-			.slice(0, 10)
+			.slice(0, 2)
 	);
 
 	return shuffle(
@@ -198,7 +199,7 @@ function newGame() {
 	);
 }
 
-function resetTimer() {
-	return new Date();
-}
+// function resetTimer() {
+// 	return new Date();
+// }
 export default CardGame;

@@ -27,12 +27,12 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				{gameState == GAME_STATE.START_GAME && (
+				{gameState === GAME_STATE.START_GAME && (
 					<div className="card-container">
 						<StartGame changeState={newState => this.changeState(newState)} />
 					</div>
 				)}
-				{gameState == GAME_STATE.PLAYING_GAME && (
+				{gameState === GAME_STATE.PLAYING_GAME && (
 					<div className="card-container">
 						<CardGame
 							changeState={newState => this.changeState(newState)}
@@ -40,12 +40,11 @@ class App extends Component {
 						/>
 					</div>
 				)}
-				{gameState == GAME_STATE.END_GAME && (
+				{gameState === GAME_STATE.END_GAME && (
 					<div className="card-container">
 						<EndGame changeState={newState => this.changeState(newState)} results={results} />
 					</div>
 				)}
-				<div>hello</div>
 			</div>
 		);
 	}

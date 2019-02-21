@@ -1,8 +1,18 @@
 .card-container {
-  width: 80vw;
+  margin-top: 5vw;
+  width: 75vw;
+  margin-left: 10vw;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  border-style: inset;
+  padding: 25px;
+  border: 15px solid yellowgreen;
+
 }
 
 img {
+
   max-width: 100%;
   max-height: 100%;
 }

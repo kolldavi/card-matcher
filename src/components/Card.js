@@ -1,36 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../styles/Card.css';
 
-class Card extends Component {
+const Card = props => {
 	//img: "img1", key: 1, match: false, isTurned: false
-
-	static defaultProps() {
-		return {
-			isTurned: false
-		};
-	}
-	handleClick = e => {
+	const done = props.match ? 'done' : '';
+	const flip = props.isTurned ? 'flip' : 'front';
+	const handleClick = e => {
 		e.preventDefault();
-		if (this.props.match) return;
-		this.props.onClick &&
-			this.props.onClick({
-				...this.props,
-				isTurned: !this.props.isTurned
+		if (props.match) return;
+		props.onClick &&
+			props.onClick({
+				...props,
+				isTurned: !props.isTurned
 			});
 	};
-	render() {
-		const done = this.props.match ? 'done' : '';
-		const flip = this.props.isTurned ? 'flip' : 'front';
-		return (
-			<div className={`card ${done} ${flip}`} onClick={this.handleClick}>
-				{this.props.isTurned ? (
-					<img className="card-image" src={this.props.img} alt={this.props.name} />
-				) : (
-					<h1> Front: </h1>
-				)}
-			</div>
-		);
-	}
-}
+	return (
+		<div className={`card ${done} ${flip}`} onClick={handleClick}>
+			{props.isTurned ? <img className="card-image" src={props.img} alt={props.name} /> : ''}
+		</div>
+	);
+};
 
 export default Card;
