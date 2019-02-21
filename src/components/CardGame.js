@@ -27,7 +27,7 @@ const cards = [
 
 class CardGame extends React.Component {
 	state = {
-		cards: newGame(),
+		cards: newGame(this.props.mode),
 		position: 'CHECK_MATCH',
 		prevCard: null,
 		uname: null,
@@ -151,7 +151,7 @@ class CardGame extends React.Component {
 	componentDidUpdate() {
 		if (this.checkWinner(this.state.cards)) {
 			this.props.updateResults(this.state.counter);
-			this.props.changeState('END_GAME');
+			this.props.changeState({ gameState: 'END_GAME' });
 		}
 	}
 	componentWillUnmount() {
@@ -165,6 +165,7 @@ class CardGame extends React.Component {
 
 	render() {
 		const { cards } = this.state;
+
 		return (
 			<div className="App">
 				<div>
@@ -175,13 +176,13 @@ class CardGame extends React.Component {
 						}}
 					/>
 				</div>
-				<p>{this.state.counter}</p>
+				<p className="timer">Time:{this.state.counter}</p>
 			</div>
 		);
 	}
 }
 
-function newGame() {
+function newGame(mode) {
 	const cardList = shuffle(
 		[]
 			.concat(
@@ -189,7 +190,7 @@ function newGame() {
 					return { ...c, uname: `${c.img}-1` };
 				})
 			)
-			.slice(0, 2)
+			.slice(0, mode)
 	);
 
 	return shuffle(

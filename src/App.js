@@ -11,11 +11,12 @@ const GAME_STATE = {
 class App extends Component {
 	state = {
 		gameState: GAME_STATE.START_GAME,
-		results: { time: 0 }
+		results: { time: 0 },
+		mode: 4
 	};
 
 	changeState(newState) {
-		this.setState({ gameState: newState });
+		this.setState({ gameState: newState.gameState, mode: newState.mode });
 	}
 
 	updateResults(results) {
@@ -23,7 +24,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { gameState, results } = this.state;
+		const { gameState, results, mode } = this.state;
 
 		return (
 			<div className="App">
@@ -37,6 +38,7 @@ class App extends Component {
 						<CardGame
 							changeState={newState => this.changeState(newState)}
 							updateResults={newResults => this.updateResults(newResults)}
+							mode={mode}
 						/>
 					</div>
 				)}
